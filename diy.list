@@ -5,15 +5,17 @@
 [Rule]
 
 DOMAIN-SUFFIX,*.github.com,PROXY
+DOMAIN-SUFFIX,github.com,DIRECT
 DOMAIN-SUFFIX,raw.githubusercontent.com,PROXY
 DOMAIN-SUFFIX,github.com,PROXY
 DOMAIN-SUFFIX,github.com,DIRECT
 DOMAIN-SUFFIX,collector.github.com,REJECT
 DOMAIN-SUFFIX,collector-cdn.github.com,REJECT
+
 DOMAIN-SUFFIX,idaas.urcb.com,DIRECT
 DOMAIN-SUFFIX,noa.urcb.com,DIRECT
-DOMAIN-SUFFIX,github.com,DIRECT
-DOMAIN-SUFFIX,raw.githubusercontent.com,PROXY
+
+
 DOMAIN-SUFFIX,apd-pcdnwxlogin.teg.tencent-cloud.net,DIRECT
 DOMAIN-SUFFIX,btrace.qq.com,DIRECT
 DOMAIN-SUFFIX,dl.wechat.com,DIRECT
