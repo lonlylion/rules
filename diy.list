@@ -1,0 +1,3 @@
+[Rule]
+DOMAIN-SUFFIX,github.com,DIRECT
+DOMAIN-SUFFIX,google,cn,PROXY
