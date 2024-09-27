@@ -4,6 +4,11 @@
 
 [Rule]
 
+DOMAIN-SUFFIX,*.github.com,PROXY
+DOMAIN-SUFFIX,github.com,PROXY
+DOMAIN-SUFFIX,github.com,DIRECT
+DOMAIN-SUFFIX,collector.github.com,REJECT
+DOMAIN-SUFFIX,collector-cdn.github.com,REJECT
 DOMAIN-SUFFIX,idaas.urcb.com,DIRECT
 DOMAIN-SUFFIX,noa.urcb.com,DIRECT
 DOMAIN-SUFFIX,github.com,DIRECT
