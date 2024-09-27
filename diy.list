@@ -3,6 +3,8 @@
 #!homepage=https://github.com/lonlylion
 
 [Rule]
+
+DOMAIN-SUFFIX,idaas.urcb.com,DIRECT
+DOMAIN-SUFFIX,noa.urcb.com,DIRECT
 DOMAIN-SUFFIX,github.com,DIRECT
-DOMAIN-SUFFIX,google,cn,PROXY
 DOMAIN-SUFFIX,raw.githubusercontent.com,PROXY
