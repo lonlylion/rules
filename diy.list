@@ -5,6 +5,7 @@
 [Rule]
 
 DOMAIN-SUFFIX,*.github.com,PROXY
+DOMAIN-SUFFIX,raw.githubusercontent.com,PROXY
 DOMAIN-SUFFIX,github.com,PROXY
 DOMAIN-SUFFIX,github.com,DIRECT
 DOMAIN-SUFFIX,collector.github.com,REJECT
