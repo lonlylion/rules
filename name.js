@@ -1,9 +1,7 @@
-// ⚠️ 可部署于 GitHub 或本地并在 Sub-Store 中调用
+// Sub-Store 脚本使用 async function(raw, ctx) { ... } 结构
+// 不要使用 module.exports！
 
-// 使用第三方免费 IP API 服务（注意速率限制）
-const IP_API_URL = "https://ipapi.co"; // 或用 ip.sb, ipapi.co 等
-
-// 国家代码转国旗 emoji
+// 🇨🇳 将国家代码转为国旗 emoji
 function countryToFlag(countryCode) {
   if (!countryCode) return "";
   return countryCode
@@ -11,37 +9,51 @@ function countryToFlag(countryCode) {
     .replace(/./g, char => String.fromCodePoint(char.charCodeAt() + 127397));
 }
 
+// 🌏 IP 查询函数，使用 ipapi.co（可替换成其他支持 CORS 的服务）
 async function getCountryInfo(host) {
   try {
-    const ip = host; // 默认直接使用 IP/域名
-    const res = await fetch(`${IP_API_URL}/${ip}/json`);
-    const json = await res.json();
+    const res = await fetch(`https://ipapi.co/${host}/json`);
+    const data = await res.json();
 
-    if (json && json.country_name && json.country) {
+    if (data && data.country_name && data.country) {
       return {
-        flag: countryToFlag(json.country),
-        country: json.country_name,
+        flag: countryToFlag(data.country),
+        country: data.country_name,
       };
     }
   } catch (e) {
-    console.log(`❌ 查询失败: ${host}`, e.message);
+    console.log(`查询失败: ${host}`);
   }
   return null;
 }
 
-// 主入口
-module.exports = async (raw, { yaml }) => {
+// ✅ Sub-Store 入口函数：必须是 async function(raw, { yaml }) {...}
+async function main(raw, { yaml }) {
   const proxies = raw.proxies;
 
+  const cache = {};
+
   for (let node of proxies) {
-    const server = node.server || "";
+    const server = node.server;
+    if (!server) continue;
+
+    if (cache[server]) {
+      node.name = `${cache[server].flag} ${cache[server].country} - ${node.name}`;
+      continue;
+    }
+
     const info = await getCountryInfo(server);
     if (info) {
       node.name = `${info.flag} ${info.country} - ${node.name}`;
+      cache[server] = info;
     } else {
       node.name = `❓ 未知 - ${node.name}`;
     }
   }
 
   return yaml.stringify({ ...raw, proxies });
-};
+}
+
+// ⚠️ Sub-Store 脚本中，必须直接导出函数
+// 而不是 module.exports！
+export default main;
